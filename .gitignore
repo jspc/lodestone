@@ -6,3 +6,5 @@
 *.sw?
 
 Gemfile.lock
+
+*.gem
