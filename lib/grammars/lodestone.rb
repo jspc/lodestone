@@ -131,8 +131,20 @@ module Lodestone
             r0 = r4
             r0.extend(Define0)
           else
-            @index = i0
-            r0 = nil
+            if has_terminal?(" should be", false, index)
+              r5 = instantiate_node(SyntaxNode,input, index...(index + 10))
+              @index += 10
+            else
+              terminal_parse_failure(" should be")
+              r5 = nil
+            end
+            if r5
+              r0 = r5
+              r0.extend(Define0)
+            else
+              @index = i0
+              r0 = nil
+            end
           end
         end
       end
@@ -284,11 +296,11 @@ module Lodestone
     end
 
     i0, s0 = index, []
-    if has_terminal?(" should be user ", false, index)
-      r1 = instantiate_node(SyntaxNode,input, index...(index + 16))
-      @index += 16
+    if has_terminal?(" user ", false, index)
+      r1 = instantiate_node(SyntaxNode,input, index...(index + 6))
+      @index += 6
     else
-      terminal_parse_failure(" should be user ")
+      terminal_parse_failure(" user ")
       r1 = nil
     end
     s0 << r1
@@ -350,11 +362,11 @@ module Lodestone
     end
 
     i0, s0 = index, []
-    if has_terminal?(" should be group ", false, index)
-      r1 = instantiate_node(SyntaxNode,input, index...(index + 17))
-      @index += 17
+    if has_terminal?(" group ", false, index)
+      r1 = instantiate_node(SyntaxNode,input, index...(index + 7))
+      @index += 7
     else
-      terminal_parse_failure(" should be group ")
+      terminal_parse_failure(" group ")
       r1 = nil
     end
     s0 << r1

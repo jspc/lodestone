@@ -14,8 +14,30 @@ We can also use puppet but this is overkill and more complex to setup.
 Usage
 --
 
-**TODO**
+A valid definition **must** start with the word 'define'. It takes the verbs:
 
+`file`
+`directory`
+`user`
+`group`
+`perms`
+
+It also has the helper /make me prettier/ verbs:
+
+`should be`
+`and`
+`with`
+`it`
+
+Which means we can be can build definitions such as:
+
+`"define directory /sss perms 777 user jspc group jspc"`
+
+Or:
+
+` "define directory /sss with perms 777 it should be user jspc and should be group jspc"`
+
+Of course all options are optional.
 
 Licence
 --

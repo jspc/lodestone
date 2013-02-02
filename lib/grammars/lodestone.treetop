@@ -9,7 +9,7 @@ grammar Lodestone
 
   # These are helper rules to make shit easier to read
   rule define
-    ("define" / " and" / " with" / " it") {
+    ("define" / " and" / " with" / " it" / " should be") {
       def content
         nil
       end
@@ -25,7 +25,7 @@ grammar Lodestone
   end
 
   rule user
-    " should be user " [A-Za-z^]+ {
+    " user " [A-Za-z^]+ {
       def content
         ["user", text_value.split[-1]]
       end
@@ -33,7 +33,7 @@ grammar Lodestone
   end
 
   rule group
-    " should be group " [A-Za-z^]+ {
+    " group " [A-Za-z^]+ {
       def content
         ["group", text_value.split[-1]]
       end
