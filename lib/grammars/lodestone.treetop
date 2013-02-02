@@ -1,6 +1,6 @@
 grammar Lodestone
   rule document
-    (define / file / dir / user / group / perms)* {
+    (define / path / user / group / perms)* {
       def content
         elements.map{ |e| e.content unless e.content.nil? }
       end
@@ -16,18 +16,10 @@ grammar Lodestone
     }
   end
 
-  rule file
-    " file " [A-Za-z\/^]+ {
+  rule path
+    (" file " [A-Za-z\/^]+ / " directory " [A-Za-z\/^]+ ) {
       def content
-        ["file", text_value.split[-1]]
-      end
-    }
-  end
-
-  rule dir
-    " directory " [A-Za-z\/^]+ {
-      def content
-        ["dir",text_value.split[-1]]	
+        ["path", text_value.split[-1]]
       end
     }
   end

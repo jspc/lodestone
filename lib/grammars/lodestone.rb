@@ -32,29 +32,24 @@ module Lodestone
       if r2
         r1 = r2
       else
-        r3 = _nt_file
+        r3 = _nt_path
         if r3
           r1 = r3
         else
-          r4 = _nt_dir
+          r4 = _nt_user
           if r4
             r1 = r4
           else
-            r5 = _nt_user
+            r5 = _nt_group
             if r5
               r1 = r5
             else
-              r6 = _nt_group
+              r6 = _nt_perms
               if r6
                 r1 = r6
               else
-                r7 = _nt_perms
-                if r7
-                  r1 = r7
-                else
-                  @index = i1
-                  r1 = nil
-                end
+                @index = i1
+                r1 = nil
               end
             end
           end
@@ -148,19 +143,22 @@ module Lodestone
     r0
   end
 
-  module File0
+  module Path0
   end
 
-  module File1
+  module Path1
+  end
+
+  module Path2
     def content
-      ["file", text_value.split[-1]]
+      ["path", text_value.split[-1]]
     end
   end
 
-  def _nt_file
+  def _nt_path
     start_index = index
-    if node_cache[:file].has_key?(index)
-      cached = node_cache[:file][index]
+    if node_cache[:path].has_key?(index)
+      cached = node_cache[:path][index]
       if cached
         cached = SyntaxNode.new(input, index...(index + 1)) if cached == true
         @index = cached.interval.end
@@ -168,114 +166,99 @@ module Lodestone
       return cached
     end
 
-    i0, s0 = index, []
+    i0 = index
+    i1, s1 = index, []
     if has_terminal?(" file ", false, index)
-      r1 = instantiate_node(SyntaxNode,input, index...(index + 6))
+      r2 = instantiate_node(SyntaxNode,input, index...(index + 6))
       @index += 6
     else
       terminal_parse_failure(" file ")
-      r1 = nil
+      r2 = nil
     end
-    s0 << r1
-    if r1
-      s2, i2 = [], index
+    s1 << r2
+    if r2
+      s3, i3 = [], index
       loop do
         if has_terminal?('\G[A-Za-z\\/^]', true, index)
-          r3 = true
+          r4 = true
           @index += 1
         else
-          r3 = nil
+          r4 = nil
         end
-        if r3
-          s2 << r3
+        if r4
+          s3 << r4
         else
           break
         end
       end
-      if s2.empty?
-        @index = i2
-        r2 = nil
+      if s3.empty?
+        @index = i3
+        r3 = nil
       else
-        r2 = instantiate_node(SyntaxNode,input, i2...index, s2)
+        r3 = instantiate_node(SyntaxNode,input, i3...index, s3)
       end
-      s0 << r2
+      s1 << r3
     end
-    if s0.last
-      r0 = instantiate_node(SyntaxNode,input, i0...index, s0)
-      r0.extend(File0)
-      r0.extend(File1)
+    if s1.last
+      r1 = instantiate_node(SyntaxNode,input, i1...index, s1)
+      r1.extend(Path0)
     else
-      @index = i0
-      r0 = nil
-    end
-
-    node_cache[:file][start_index] = r0
-
-    r0
-  end
-
-  module Dir0
-  end
-
-  module Dir1
-    def content
-      ["dir",text_value.split[-1]]	
-    end
-  end
-
-  def _nt_dir
-    start_index = index
-    if node_cache[:dir].has_key?(index)
-      cached = node_cache[:dir][index]
-      if cached
-        cached = SyntaxNode.new(input, index...(index + 1)) if cached == true
-        @index = cached.interval.end
-      end
-      return cached
-    end
-
-    i0, s0 = index, []
-    if has_terminal?(" directory ", false, index)
-      r1 = instantiate_node(SyntaxNode,input, index...(index + 11))
-      @index += 11
-    else
-      terminal_parse_failure(" directory ")
+      @index = i1
       r1 = nil
     end
-    s0 << r1
     if r1
-      s2, i2 = [], index
-      loop do
-        if has_terminal?('\G[A-Za-z\\/^]', true, index)
-          r3 = true
-          @index += 1
-        else
-          r3 = nil
-        end
-        if r3
-          s2 << r3
-        else
-          break
-        end
-      end
-      if s2.empty?
-        @index = i2
-        r2 = nil
-      else
-        r2 = instantiate_node(SyntaxNode,input, i2...index, s2)
-      end
-      s0 << r2
-    end
-    if s0.last
-      r0 = instantiate_node(SyntaxNode,input, i0...index, s0)
-      r0.extend(Dir0)
-      r0.extend(Dir1)
+      r0 = r1
+      r0.extend(Path2)
     else
-      @index = i0
-      r0 = nil
+      i5, s5 = index, []
+      if has_terminal?(" directory ", false, index)
+        r6 = instantiate_node(SyntaxNode,input, index...(index + 11))
+        @index += 11
+      else
+        terminal_parse_failure(" directory ")
+        r6 = nil
+      end
+      s5 << r6
+      if r6
+        s7, i7 = [], index
+        loop do
+          if has_terminal?('\G[A-Za-z\\/^]', true, index)
+            r8 = true
+            @index += 1
+          else
+            r8 = nil
+          end
+          if r8
+            s7 << r8
+          else
+            break
+          end
+        end
+        if s7.empty?
+          @index = i7
+          r7 = nil
+        else
+          r7 = instantiate_node(SyntaxNode,input, i7...index, s7)
+        end
+        s5 << r7
+      end
+      if s5.last
+        r5 = instantiate_node(SyntaxNode,input, i5...index, s5)
+        r5.extend(Path1)
+      else
+        @index = i5
+        r5 = nil
+      end
+      if r5
+        r0 = r5
+        r0.extend(Path2)
+      else
+        @index = i0
+        r0 = nil
+      end
     end
 
-    node_cache[:dir][start_index] = r0
+    node_cache[:path][start_index] = r0
 
     r0
   end
