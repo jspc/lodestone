@@ -14,6 +14,8 @@ We can also use puppet but this is overkill and more complex to setup.
 Usage
 --
 
+A better way to suss syntax is to look at `./lib/grammars/lodestone.treetop` but as a quickstart:
+
 A valid definition **must** start with the word 'define'. It takes the verbs:
 
 `file`
@@ -37,7 +39,16 @@ Or:
 
 ` "define directory /sss with perms 777 it should be user jspc and should be group jspc"`
 
-Of course all options are optional.
+The below are all perfectly valid:
+
+```
+define directory one it should be user jspc and it should be group everyone and it should be with perms 777
+define directory two it should be with perms 700
+define directory three with group everyone
+define directory four with user root
+define directory five with perms 000
+```
+
 
 Licence
 --
